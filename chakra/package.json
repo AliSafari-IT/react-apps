@@ -1,0 +1,15 @@
+{
+  "name": "chakra-ui",
+  "version": "1.0.0",
+  "main": "main.tsx",
+  "author": "Ali Safari",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@chakra-ui/next-js": "^2.2.0",
+    "@chakra-ui/react": "^2.8.2",
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
+    "framer-motion": "^10.16.16"
+  }
+}
