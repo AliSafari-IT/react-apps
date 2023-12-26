@@ -1,11 +1,8 @@
 {
 	"folders": [
 		{
-			"path": "next-app"
-		},
-		{
-			"path": "next-api"
-		}
+			"path": "."
+		}		
 	],
 	"settings": {}
 }
