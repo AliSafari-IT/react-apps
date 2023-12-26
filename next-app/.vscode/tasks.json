@@ -1,0 +1,34 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+            "label": "yarn build",
+            "type": "shell",
+            "command": "yarn build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "yarn start",
+            "type": "shell",
+            "command": "yarn start",
+            "isBackground": true,
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+		{
+            "label": "yarn build and start",
+            "dependsOn": ["yarn build", "yarn start"],
+            "dependsOrder": "sequence"
+        }
+		
+	]
+}
