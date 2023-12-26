@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\next-api.props" />
+</Project>
