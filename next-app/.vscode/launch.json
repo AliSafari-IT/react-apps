@@ -18,6 +18,18 @@
                 "pattern": "\\bServer running at\\b.*\\b(http://\\S+:\\d+)\\b",
                 "uriFormat": "%s"
             }
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Dev",
+            "runtimeExecutable": "yarn",
+            "runtimeArgs": ["dev"],
+            "timeout": 30000,
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "skipFiles": ["<node_internals>/**"],
+            "preLaunchTask": "yarn dev"
         }
     ]
 }
