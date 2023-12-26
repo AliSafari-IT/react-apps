@@ -1,9 +1,14 @@
 "use client"
 
-import { useState } from "react";
-
+import { JSXElementConstructor, Key, PromiseLikeOfReactNode, ReactElement, ReactNode, ReactPortal, useState } from "react";
+interface WeatherData {
+    date: string;
+    temperatureC: number;
+    temperatureF: number;
+    summary: string;
+}
 export default function NavbarButtons() {
-    const [data, setData] = useState(null);
+    const [data, setData] = useState<WeatherData[]>([]);
 
     async function refData() {
         try {
@@ -31,7 +36,7 @@ export default function NavbarButtons() {
                 >
                     Download
                 </span></button>
-            {data && (
+            {data.length > 0 && (
                 <table className="table-auto">
                     <thead>
                         <tr>
@@ -41,7 +46,7 @@ export default function NavbarButtons() {
                         </tr>
                     </thead>
                     <tbody>
-                        {data?.map((item, index) => (
+                        {data.map((item: { date: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | PromiseLikeOfReactNode | null | undefined; temperatureC: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | PromiseLikeOfReactNode | null | undefined; summary: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | PromiseLikeOfReactNode | null | undefined; }, index: Key | null | undefined) => (
                             <tr key={index} className="hover:table-fixed">
                                 <td className="w-48  text-center">{item.date}</td>
                                 <td className="w-48  text-center">{item.temperatureC}°C</td>
