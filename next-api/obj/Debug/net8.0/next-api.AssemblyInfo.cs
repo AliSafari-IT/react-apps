@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("next-api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8fe07294da6378eb639c51660bd2c1a6da9d9b42")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d663be275c4c8a220732f886fd46d42bd8dd17ba")]
 [assembly: System.Reflection.AssemblyProductAttribute("next-api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("next-api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
