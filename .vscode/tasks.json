@@ -63,6 +63,31 @@
             "label": "Run Both",
             "dependsOn": ["Update and Run API", "Update and Run Next App"],
             "dependsOrder": "parallel"
+        },
+        {
+            "label": "Open Chrome",
+            "type": "shell",
+            "command": "start chrome http://localhost:3000 && exit",
+            "windows": {
+                "command": "powershell -Command \"Start-Process chrome http://localhost:3000; exit\""
+            },
+            "linux": {
+                "command": "google-chrome http://localhost:3000"
+            },
+            "osx": {
+                "command": "open -a 'Google Chrome' http://localhost:3000"
+            },
+            "presentation": {
+                "reveal": "silent",
+                "panel": "shared",
+                "focus": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Run Both and Open Chrome",
+            "dependsOn": ["Run Both", "Open Chrome"],
+            "dependsOrder": "parallel"
         }
     ]
 }
