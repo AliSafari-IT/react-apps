@@ -13,4 +13,11 @@ npm-debug.log
 # Ignored directories
 next-api/bin/
 next-api/obj/
-next-api/.vs/next-api/FileContentIndex/*.vsidx
+next-api/.vs/next-api/
+.vs/**/*.suo
+next-api/.vs/ProjectEvaluation/
+next-api/.vs/next-api/DesignTimeBuild/.dtbcache.v2
+next-api/.vs/next-api/v17/.futdcache.v2
+next-api/.vs/ProjectEvaluation/next-api.metadata.v7.bin
+next-api/.vs/ProjectEvaluation/next-api.projects.v7.bin
+next-api/yarn.lock
