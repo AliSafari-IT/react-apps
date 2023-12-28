@@ -11,7 +11,8 @@ interface WeatherData {
 export default function NavbarButtons() {
     const [data, setData] = useState<WeatherData[]>([]);
     const [urlFetched, setUrlFetched] = useState<string>('https://localhost:44348/WeatherForecast');
-    
+    const [show, setShow] = useState(false);
+
     const freezingDays = useMemo(() => {
         return data.filter(item => item.temperatureC < 0);
     }, [data]);
@@ -32,18 +33,19 @@ export default function NavbarButtons() {
             let response = await fetch(urlFetched);
 
             const fetchedData = await response.json();
-            console.log({ "fetchedDataJson": fetchedData });
-
             setData(fetchedData);
+            setShow(true);
+            console.log({ fetchedData });
+
         } catch (error) {
             try {
                 let response = await fetch('http://localhost:5252/WeatherForecast');
-                if (!response.ok) throw new Error();   
+                if (!response.ok) throw new Error();
                 const fetchedData = await response.json();
                 console.log({ "fetchedDataJson": fetchedData });
-
                 setData(fetchedData);
                 setUrlFetched('http://localhost:5252/WeatherForecast');
+                setShow(true);
             } catch (error) {
                 console.error('Failed to fetch data:', error);
             }
@@ -51,10 +53,12 @@ export default function NavbarButtons() {
     }
 
     const saveData = async () => {
+
         const saveDataModel = {
             idobject: generateGUID(),
             wdata: data,
         };
+
         try {
             const response = await fetch(`${urlFetched}/save`, {
                 method: 'POST',
@@ -63,18 +67,35 @@ export default function NavbarButtons() {
                 },
                 body: JSON.stringify(saveDataModel),
             });
-            console.log({saveDataModel});
-            
-            // Rest of your code...
+            setShow(false); 
+            if (response.ok) {
+                console.log('Data saved to MongoDB');
+            } else {
+                console.error('Failed to save data');
+            }
         } catch (error) {
             console.error('Error saving data:', error);
         }
     };
 
-    useEffect(()=>{
-        console.log({"urlFetched": urlFetched});
-        
-    }, [urlFetched])
+
+
+    useEffect(() => {
+        if (data.length > 0) {
+            console.log({ data });
+        }
+    }, [data]);
+
+    useEffect(() => {
+        console.log({ show });
+
+    }, [show]);
+
+    useEffect(() => {
+        console.log({ "urlFetched": urlFetched });
+
+    }, [urlFetched]);
+
     return (
         <>
             <button
@@ -91,10 +112,25 @@ export default function NavbarButtons() {
                     Reload
                 </span>
             </button>
-            <button onClick={() => saveData()} className="your-button-styles">
-                Save to Database
-            </button>
+            {show && <button
+                onClick={() => saveData()}
+                className="group relative inline-block m-5 p-5 text-center text-sm font-medium text-blue border-green-900 focus:border-blue-400 focus:ring  shadow rounded"
+            >
+                <span
+                    className={"absolute inset-x-0 top-0 h-[2px] transition-all group-hover:h-full group-active:bg-red-900 bg-green-700"}
+                ></span>
 
+                <span
+                    className={"relative text-sm font-medium text-light-600 transition-colors group-hover:bg-green"}
+                >
+                    Save
+                </span>
+            </button>}
+            {!show && <span
+                className={"relative text-sm font-medium text-indigo-600 transition-colors group-hover:text-white"}
+            >
+                Reload data!
+            </span>}
 
             {data.length > 0 && (
                 <table className="table-auto">
