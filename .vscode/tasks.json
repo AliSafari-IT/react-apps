@@ -2,9 +2,9 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Run API",
+            "label": "Update and Run API",
             "type": "shell",
-            "command": "dotnet run",
+            "command": "git pull && yarn install && dotnet run",
             "options": {
                 "cwd": "${workspaceFolder}/next-api"
             },
@@ -13,25 +13,27 @@
                 "reveal": "always",
                 "panel": "new"
             },
-            "problemMatcher": {
-                "owner": "dotnet",
-                "pattern": {
-                    "regexp": "^.+$",
-                    "file": 1,
-                    "location": 2,
-                    "message": 3
-                },
-                "background": {
-                    "activeOnStart": true,
-                    "beginsPattern": "^.*Application started.*$",
-                    "endsPattern": "^.*Application stopping.*$"
+            "problemMatcher": [
+                {
+                    "owner": "dotnet",
+                    "pattern": {
+                        "regexp": "^.+$",
+                        "file": 1,
+                        "location": 2,
+                        "message": 3
+                    },
+                    "background": {
+                        "activeOnStart": true,
+                        "beginsPattern": "^.*Application started.*$",
+                        "endsPattern": "^.*Application stopping.*$"
+                    }
                 }
-            }
+            ]
         },
         {
-            "label": "Run Next App",
+            "label": "Update and Run Next App",
             "type": "shell",
-            "command": "yarn dev",
+            "command": "git pull && yarn install && yarn dev",
             "options": {
                 "cwd": "${workspaceFolder}/next-app"
             },
@@ -40,24 +42,51 @@
                 "reveal": "always",
                 "panel": "new"
             },
-            "problemMatcher": {
-                "owner": "javascript",
-                "pattern": {
-                    "regexp": "^.+$",
-                    "file": 1,
-                    "location": 2,
-                    "message": 3
-                },
-                "background": {
-                    "activeOnStart": true,
-                    "beginsPattern": "^.*Starting development server.*$",
-                    "endsPattern": "^.*Compiled successfully.*$"
+            "problemMatcher": [
+                {
+                    "owner": "javascript",
+                    "pattern": {
+                        "regexp": "^.+$",
+                        "file": 1,
+                        "location": 2,
+                        "message": 3
+                    },
+                    "background": {
+                        "activeOnStart": true,
+                        "beginsPattern": "^.*Starting development server.*$",
+                        "endsPattern": "^.*Compiled successfully.*$"
+                    }
                 }
-            }
+            ]
         },
         {
             "label": "Run Both",
-            "dependsOn": ["Run API", "Run Next App"],
+            "dependsOn": ["Update and Run API", "Update and Run Next App"],
+            "dependsOrder": "parallel"
+        },
+        {
+            "label": "Open Chrome",
+            "type": "shell",
+            "command": "start chrome http://localhost:3000 && exit",
+            "windows": {
+                "command": "powershell -Command \"Start-Process chrome http://localhost:3000; exit\""
+            },
+            "linux": {
+                "command": "google-chrome http://localhost:3000"
+            },
+            "osx": {
+                "command": "open -a 'Google Chrome' http://localhost:3000"
+            },
+            "presentation": {
+                "reveal": "silent",
+                "panel": "shared",
+                "focus": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Run Both and Open Chrome",
+            "dependsOn": ["Run Both", "Open Chrome"],
             "dependsOrder": "parallel"
         }
     ]
