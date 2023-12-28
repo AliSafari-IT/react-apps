@@ -18,6 +18,24 @@
                 "pattern": "\\bServer running at\\b.*\\b(http://\\S+:\\d+)\\b",
                 "uriFormat": "%s"
             }
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Open Chrome",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/next-app/src/app/layout.tsx",
+            "outFiles": [
+                "${workspaceFolder}/next-app/**/*.js"
+            ],
+            "preLaunchTask": "Run Both and Open Chrome",
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bServer running at\\b.*\\b(http://\\S+:\\d+)\\b",
+                "uriFormat": "%s"
+            }
         }
     ]
 }
