@@ -1,5 +1,6 @@
 "use client"
 
+import { generateGUID } from "@/lib/util/generateGUID";
 import { JSXElementConstructor, Key, PromiseLikeOfReactNode, ReactElement, ReactNode, ReactPortal, useEffect, useMemo, useState } from "react";
 interface WeatherData {
     date: string;
@@ -9,6 +10,8 @@ interface WeatherData {
 }
 export default function NavbarButtons() {
     const [data, setData] = useState<WeatherData[]>([]);
+    const [urlFetched, setUrlFetched] = useState<string>('https://localhost:44348/WeatherForecast');
+    
     const freezingDays = useMemo(() => {
         return data.filter(item => item.temperatureC < 0);
     }, [data]);
@@ -26,21 +29,52 @@ export default function NavbarButtons() {
 
     async function refData() {
         try {
-            const response = await fetch('https://localhost:44348/WeatherForecast') ?? await fetch('http://localhost:5252/WeatherForecast');
-            if (!response.ok) {
-                throw new Error(`Error occurred in fetching data: ${response.status}`);
-            }
-            console.log({ "fetchedResponse": response });
+            let response = await fetch(urlFetched);
 
             const fetchedData = await response.json();
             console.log({ "fetchedDataJson": fetchedData });
 
             setData(fetchedData);
         } catch (error) {
-            console.error('Failed to fetch data:', error);
+            try {
+                let response = await fetch('http://localhost:5252/WeatherForecast');
+                if (!response.ok) throw new Error();   
+                const fetchedData = await response.json();
+                console.log({ "fetchedDataJson": fetchedData });
+
+                setData(fetchedData);
+                setUrlFetched('http://localhost:5252/WeatherForecast');
+            } catch (error) {
+                console.error('Failed to fetch data:', error);
+            }
         }
     }
 
+    const saveData = async () => {
+        const saveDataModel = {
+            idobject: generateGUID(),
+            wdata: data,
+        };
+        try {
+            const response = await fetch(`${urlFetched}/save`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(saveDataModel),
+            });
+            console.log({saveDataModel});
+            
+            // Rest of your code...
+        } catch (error) {
+            console.error('Error saving data:', error);
+        }
+    };
+
+    useEffect(()=>{
+        console.log({"urlFetched": urlFetched});
+        
+    }, [urlFetched])
     return (
         <>
             <button
@@ -57,6 +91,10 @@ export default function NavbarButtons() {
                     Reload
                 </span>
             </button>
+            <button onClick={() => saveData()} className="your-button-styles">
+                Save to Database
+            </button>
+
 
             {data.length > 0 && (
                 <table className="table-auto">

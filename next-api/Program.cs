@@ -1,7 +1,12 @@
+using MongoDB.Driver;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
+
+builder.Services.AddSingleton<IMongoClient, MongoClient>(
+    sp => new MongoClient("mongodb://localhost:27017/"));
 
 // Configure CORS
 builder.Services.AddCors(options =>

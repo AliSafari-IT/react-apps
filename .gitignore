@@ -8,7 +8,9 @@ stats.json
 .DS_Store
 npm-debug.log
 .idea
+.suo
 
 # Ignored directories
 next-api/bin/
 next-api/obj/
+next-api/.vs/next-api/FileContentIndex/*.vsidx
