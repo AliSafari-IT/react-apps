@@ -64,5 +64,3 @@ This project is licensed under the [MIT License](LICENSE).
 - Thanks to everyone who contributes to this project.
 - Special thanks to the ASP.NET and Next.js communities.
 ```
-
-Feel free to modify this template to include any additional information specific to your project, such as screenshots, additional setup instructions, testing procedures, or deployment guidelines.
